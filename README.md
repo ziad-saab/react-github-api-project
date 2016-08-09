@@ -92,7 +92,7 @@ In the callback to your AJAX request, use `setState` to set a `followers` state 
 ### Step 5: displaying the followers data in the `Followers` component:
 Using the `this.state.followers` in your `render` method, display the followers that you receive from GitHub. We'll do this in a few steps.
 
-1. Create a new pure component called `GithubUser`. It should receive a `user` prop, and use its `avatar_url` and `login` properties to display one GitHub user. The whole display should link back to that user's page in your app, using React Router's `Link` component. Here's a sample output of your `GithubUser` component:
+1. Create a new pure component called `GithubUser`. It should receive a `user` prop, and use its `avatar_url` and `login` properties to display one GitHub user. The whole display should link back to that user's page in your app, using React Router's `Link` component. Here's what a sample output of your `GithubUser` component should look like:
 
 ```javascript
 <Link to="/user/ziad-saab">
@@ -100,6 +100,10 @@ Using the `this.state.followers` in your `render` method, display the followers 
   ziad-saab
 </Link>
 ```
+
+And here's a visual example of four `GithubUser` instances (remember to use `vertical-align` in your CSS to align the image and the name):
+
+![GithubUser component](http://i.imgur.com/dWp7NIc.png)
 
 2. In `Followers`, use require to import your `GithubUser` component.
 3. In the `render` method of `Followers`, use `map` to take the array at `this.state.followers`, and map it to an array of `<GithubUser />` elements, passing the `user` prop. The code of `Followers`' `render` method should look like this:
