@@ -21,6 +21,12 @@ Let's take a look at the code that's already there. Many of the starter files sh
 * `src/js/components/*`: All the components of our application.
 * `src/css/app.css`: The styles for our app. Check it out to see how your starter app is being styled, and add to it to complete the project.
 
+**To get started coding on this project, remember the following steps**:
+
+1. `npm install` the first time you clone this repo
+2. `npm run dev` anytime you want to start developing. This will watch your JS files and re-run webpack when there are changes
+3. `node server.js` to start the Express server that will serve the app.
+
 In `app.js` we have the following route structure:
 
 ```javascript
@@ -36,7 +42,45 @@ When the `Search` component is displayed, it has a form and a button. When the f
 
 Once we navigate to the new URL, React Router will render a `User` component. Looking at the `componentDidMount` method of the `User`, you'll see that it does an AJAX call using `this.props.params.username`. The reason why it has access to this prop is because the Router passed it when it mounted the component.
 
-In the `render` method of the `User` component, we are displaying the user info, and we have three links that don't lead anywhere for the moment:
+The AJAX call is made to `https://api.github.com/users/{USERNAME}` and returns the following information:
+
+```json
+{
+  "login": "gaearon",
+  "id": 810438,
+  "avatar_url": "https://avatars.githubusercontent.com/u/810438?v=3",
+  "gravatar_id": "",
+  "url": "https://api.github.com/users/gaearon",
+  "html_url": "https://github.com/gaearon",
+  "followers_url": "https://api.github.com/users/gaearon/followers",
+  "following_url": "https://api.github.com/users/gaearon/following{/other_user}",
+  "gists_url": "https://api.github.com/users/gaearon/gists{/gist_id}",
+  "starred_url": "https://api.github.com/users/gaearon/starred{/owner}{/repo}",
+  "subscriptions_url": "https://api.github.com/users/gaearon/subscriptions",
+  "organizations_url": "https://api.github.com/users/gaearon/orgs",
+  "repos_url": "https://api.github.com/users/gaearon/repos",
+  "events_url": "https://api.github.com/users/gaearon/events{/privacy}",
+  "received_events_url": "https://api.github.com/users/gaearon/received_events",
+  "type": "User",
+  "site_admin": false,
+  "name": "Dan Abramov",
+  "company": "Facebook",
+  "blog": "http://twitter.com/dan_abramov",
+  "location": "London, UK",
+  "email": "dan.abramov@me.com",
+  "hireable": null,
+  "bio": "Created: Redux, React Hot Loader, React DnD. Now helping make @reactjs better at @facebook.",
+  "public_repos": 176,
+  "public_gists": 48,
+  "followers": 10338,
+  "following": 171,
+  "created_at": "2011-05-25T18:18:31Z",
+  "updated_at": "2016-07-28T14:41:02Z"
+}
+```
+[GitHub API documentation for Users](https://developer.github.com/v3/users/)
+
+In the `render` method of the `User` component, we are displaying the user info based on the received result, and we have three links that don't lead anywhere for the moment:
 
 ![links](http://i.imgur.com/3CFG1ir.png)
 
