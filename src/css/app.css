@@ -57,6 +57,9 @@ h1,h2,h3,h4,h5,h6 {
 .user-info {
     display: flex;
     flex-wrap: wrap;
+    padding-bottom: 1em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.9);
+    margin-bottom: 1em;
 }
 
 .user-info__avatar {
@@ -104,4 +107,41 @@ h1,h2,h3,h4,h5,h6 {
 .user-info__stat p {
     margin: 0;
     white-space: nowrap;
+}
+
+.github-usertag {
+    text-decoration: none;
+    color: #000;
+    white-space: nowrap;
+}
+
+.github-usertag__avatar {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    margin-right: 0.5em;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.followers-list {
+    list-style: none;
+}
+
+.followers-list li {
+    margin-bottom: 1em;
+}
+
+.github-repotag {
+    text-decoration: none;
+    color: #000;
+    white-space: nowrap;
+}
+.github-repotag__stars {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 2px 4px;
+    line-height: 1;
+    border: 1px solid black;
+    font-size: 0.9em;
 }

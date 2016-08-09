@@ -17,8 +17,22 @@ var User = React.createClass({
     /*
     This method will be called by React after the first render. It's a perfect place to load
     data with AJAX. This User component gets mounted in the DOM as soon as the URL is /user/:username
+    */
+    componentDidMount: function() {
+        this.fetchData();
+    },
     
-    When that happens, react-router will pass a `params` prop containing every parameter in the URL, just like
+    /*
+    THIS is the fix for when we change URLs without re-mounting the component. The component will simply receive new props!
+    */
+    componentDidUpdate: function(prevProps) {
+        if (prevProps.params.username !== this.props.params.username) {
+            this.fetchData();
+        }
+    },
+    
+    /*
+    When fetchData gets called, react-router will pass a `params` prop containing every parameter in the URL, just like
     when we get URL parameters in Express with req.params. Here, it's this.props.params. Since we called our route
     parameter `username`, it's available under this.props.params.username
     
@@ -26,7 +40,7 @@ var User = React.createClass({
     the data -- in the callback -- we call `setState` to put the user data in our state. This will trigger a re-render.
     When `render` gets called again, `this.state.user` exists and we get the user info display instead of "LOADING..."
     */
-    componentDidMount: function() {
+    fetchData: function() {
         var that = this; // What's this?? Make sure you remember or understand what this line does
         
         $.getJSON(`https://api.github.com/users/${this.props.params.username}`)
@@ -94,6 +108,9 @@ var User = React.createClass({
                         {stats.map(this.renderStat)}              
                     </ul>
                 </div>
+                <div className="user-extra">
+                    {this.props.children}
+                </div>  
             </div>
         );
     }
