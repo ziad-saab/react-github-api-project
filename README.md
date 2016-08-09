@@ -45,7 +45,9 @@ If you click on followers, notice that the URL of the page changes to `/users/:u
 **The goal of this workshop** is to implement the three links above. To do this, we'll start by implementing the followers page together with step by step instructions. Then, your job will be to implement the two remaining screens and fix any bugs.
 
 ## Implementing the Followers page
-When clicking on the followers link in the UI, notice that the URL changes to `/user/:username/followers`. Currently this results in a "not found" route. Let's fix this
+When clicking on the followers link in the UI, notice that the URL changes to `/user/:username/followers`. Currently this results in a "not found" route. Let's fix this.
+
+![followers page](http://i.imgur.com/IwkBOUc.png)
 
 ### Step 1: adding the route
 In `app.js`, you currently have your user route setup like this:
@@ -152,7 +154,9 @@ Implementing the following page is an exact copy of the followers page. The only
 1. Use `/following` instead of `/followers` in your AJAX call
 2. The title of the page and its URL will be different
 
-When displaying the following list, note that you can -- and *should* -- reuse the `GithubUser` presentational component.
+When displaying the following list, note that you can -- and *should* -- reuse the same `GithubUser` presentational component.
+
+![following page](http://i.imgur.com/1bFxwc7.png)
 
 ## Implementing the repos page
 Implementing the repos page is similar to the other two pages you implemented. The only differences are:
@@ -161,6 +165,8 @@ Implementing the repos page is similar to the other two pages you implemented. T
 2. Title and URL are different
 3. Instead of using a `<Link>` element to link to the repo, use a regular `<a href>` since you're linking to an external resource.
 4. You'll need a new `GithubRepo` component that will act similar to the `GithubUser` component you used to display the followers/following.
+
+![repos page](http://i.imgur.com/kxvnCun.png)
 
 When you finish everything, your end-result should look and behave like this:
 
