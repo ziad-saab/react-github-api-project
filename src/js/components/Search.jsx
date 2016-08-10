@@ -11,7 +11,7 @@ This will have as an effect to navigate to a new URL, which will display the Use
 var Search = React.createClass({
     _handleSubmit: function(e) {
         e.preventDefault();
-        history.push(`/user/${this.refs.userInput.value}`)
+        history.push(`/user/${this.refs.userInput.value}`);
     },
     render: function() {
         return (

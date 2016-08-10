@@ -27,12 +27,11 @@ var User = React.createClass({
     When `render` gets called again, `this.state.user` exists and we get the user info display instead of "LOADING..."
     */
     componentDidMount: function() {
-        var that = this; // What's this?? Make sure you remember or understand what this line does
+        var that = this; 
         
         $.getJSON(`https://api.github.com/users/${this.props.params.username}`)
             .then(
                 function(user) {
-                    // Why that.setState instead of this.setState??
                     that.setState({
                         user: user
                     });
@@ -93,6 +92,9 @@ var User = React.createClass({
                     <ul className="user-info__stats">
                         {stats.map(this.renderStat)}              
                     </ul>
+                    <div>
+                        {this.props.children}
+                    </div>
                 </div>
             </div>
         );
