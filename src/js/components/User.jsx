@@ -100,6 +100,7 @@ var User = React.createClass({
                     <ul className="user-info__stats">
                         {stats.map(this.renderStat)}              
                     </ul>
+                    <hr/>
                     <div className="users_children_container">
                         {this.props.children}
                     </div>
