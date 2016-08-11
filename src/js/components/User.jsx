@@ -27,8 +27,8 @@ var User = React.createClass({
     When `render` gets called again, `this.state.user` exists and we get the user info display instead of "LOADING..."
     */
     fetchData: function() {
-        var that = this; 
-        
+        var that = this;
+
         $.getJSON(`https://api.github.com/users/${this.props.params.username}?access_token=6d7ffda3c063706d6b19b0321903ee347f9c1d8b`)
             .then(
                 function(user) {
@@ -38,12 +38,15 @@ var User = React.createClass({
                 }
             );
     },
-    componentDidMount: function(){
-      this.fetchData();  
+    componentDidMount: function() {
+        this.fetchData();
+        this.componentDidUpdate();
     },
-    componentDidUpdate: function(prevProps){
-        if(prevProps.params.username !== this.props.params.username){
-            this.fetchData();    
+    componentDidUpdate: function(prevProps) {
+        if (prevProps) {
+            if (prevProps.username !== this.props.params.username) {
+                this.fetchData();
+            }
         }
     },
     /*
@@ -64,29 +67,25 @@ var User = React.createClass({
         if (!this.state.user) {
             return (<div className="user-page">LOADING...</div>);
         }
-        
+
         // If we get to this part of `render`, then the user is loaded
         var user = this.state.user;
-        
+
         // Gather up some number stats about the user, to be used in a map below
-        var stats = [
-            {
-                name: 'Public Repos',
-                value: user.public_repos,
-                url: `/user/${this.props.params.username}/repos`
-            },
-            {
-                name: 'Followers',
-                value: user.followers,
-                url: `/user/${this.props.params.username}/followers`
-            },
-            {
-                name: 'Following',
-                value: user.following,
-                url: `/user/${this.props.params.username}/following`
-            }
-        ];
-        
+        var stats = [{
+            name: 'Public Repos',
+            value: user.public_repos,
+            url: `/user/${this.props.params.username}/repos`
+        }, {
+            name: 'Followers',
+            value: user.followers,
+            url: `/user/${this.props.params.username}/followers`
+        }, {
+            name: 'Following',
+            value: user.following,
+            url: `/user/${this.props.params.username}/following`
+        }];
+
         // Look in app.css for the styles that make this look like it does
         return (
             <div className="user-page">

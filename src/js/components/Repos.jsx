@@ -1,46 +1,41 @@
 var React = require('react');
 var $ = require('jquery');
 
-var GithubUser = require('./GithubUser');
+var GithubRepo = require('./GithubRepo');
 
 var Repos = React.createClass({
-//     getInitialState: function() {
-//         return {};
-//     },
-//     fetchData: function() {
-//         var url = `https://api.github.com/users/${this.props.params.username}/followers?access_token=6d7ffda3c063706d6b19b0321903ee347f9c1d8b`;
-//         var that = this;
-
-//         $.getJSON(url).then(
-//             function(response) {
-//                 that.setState({
-//                     followers: response
-//                 });
-//             });
-//     },
-//     componentDidMount: function(){
-//         this.fetchData();
-//     },
-//     componentDidUpdate: function(prevProps){
-//         if(prevProps.params.username !== this.props.params.username){
-//             this.fetchData();
-//         }
-//     },
+    getInitialState: function() {
+        return {
+            repos: []
+        };
+    },
+    componentDidMount: function() {
+        var url = `https://api.github.com/users/${this.props.params.username}/repos?access_token=6d7ffda3c063706d6b19b0321903ee347f9c1d8b`;
+        var that = this;
+        
+        $.getJSON(url).then(
+            function(response) {
+                console.log('response if you need it ', response);   
+                that.setState({
+                    repos: response
+                });
+            });
+         
+    },
     render: function() {
-//         if (!this.state.followers) {
-//             return <div>LOADING FOLLOWERS...</div>;
-//         }
-//         return (
-//             <div className="followers-page">
-//                 <h3>Followers of {this.props.params.username}</h3>
-//                 <ul>
-//                     {this.state.followers.map(function(eachUser){
-//                       return <GithubUser user={eachUser} key={eachUser.id}/>;
-//                     })}
-//                 </ul>
-                
-//             </div>
-//         );
+        if (!this.state.repos) {
+            return <div>LOADING REPOS...</div>;
+        }
+        return (
+            <div>
+                <h3>{this.props.params.username} public repos</h3>
+                <ul>
+                    {this.state.repos.map(function(eachRepo){
+                       return <GithubRepo repo={eachRepo} key={eachRepo.id}/>;
+                    })}
+                </ul>
+            </div>
+        );
     }
 });
 

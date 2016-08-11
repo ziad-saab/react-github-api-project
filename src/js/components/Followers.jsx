@@ -7,7 +7,7 @@ var Followers = React.createClass({
     getInitialState: function() {
         return {};
     },
-    fetchData: function() {
+    componentDidMount: function() {
         var url = `https://api.github.com/users/${this.props.params.username}/followers?access_token=6d7ffda3c063706d6b19b0321903ee347f9c1d8b`;
         var that = this;
 
@@ -17,14 +17,6 @@ var Followers = React.createClass({
                     followers: response
                 });
             });
-    },
-    componentDidMount: function(){
-        this.fetchData();
-    },
-    componentDidUpdate: function(prevProps){
-        if(prevProps.params.username !== this.props.params.username){
-            this.fetchData();
-        }
     },
     render: function() {
         if (!this.state.followers) {
