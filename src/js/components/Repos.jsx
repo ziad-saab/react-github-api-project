@@ -15,7 +15,6 @@ var Repos = React.createClass({
         
         $.getJSON(url).then(
             function(response) {
-                console.log('response if you need it ', response);   
                 that.setState({
                     repos: response
                 });
