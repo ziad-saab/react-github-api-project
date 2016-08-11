@@ -19,5 +19,3 @@ var GithubRepo = React.createClass({
 });
 
 module.exports = GithubRepo;
-
-//maybe href should have /user/ before link
