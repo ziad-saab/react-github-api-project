@@ -215,3 +215,66 @@ Implementing the repos page is similar to the other two pages you implemented. T
 When you finish everything, your end-result should look and behave like this:
 
 ![react github project](http://i.imgur.com/cSckwUo.gif)
+
+
+# Challenge: infinite scrolling!
+:warning: If you're going to do this challenge, I suggest you start it in a separate branch and commit often. This way you always have somewhere to go back to when "things were working".
+
+For this challenge, we're going to use the [`react-infinite`](https://github.com/seatgeek/react-infinite) component to load extra data from the GitHub API.
+
+Right now, if you look at a profile with a lot of followers, you'll notice that GitHub API only returns the first 25 followers. The API has a `per_page` query string parameter that you can set, but the maximum number of items per page is still 100. If someone has more than 100 followers, you'd have to do many requests to get all of them.
+
+React Infinite will take care of most of the heavy lifting for us. First of all, it's never a good idea to have thousands of elements on the page if the user is only seeing a handful. React Infinite will be efficient in showing only the elements that are in the view. Second, React Infinite will detect the scroll position and can fire off a callback when the scrolling reaches the edge of your container.
+
+All you have to do is provide React Infinite with the callback function that will load your data, and pass your items to the `<Infinite>` component.
+
+Let's do it step by step for **followers** and then you can reproduce it for the other pages. This is what your app will look like once you are done:
+
+![infinite scroll](http://i.imgur.com/Y4D2d37.gif)
+
+## Step 0: :eyeglasses: reading the documentation!
+[Read the documentation for React Infinite](https://github.com/seatgeek/react-infinite#react-infinite) to get an idea of what's going on. Once you have read the documentation, make sure to install the `react-infinite` package from NPM.
+
+## Step 1: modifying the `Followers` component
+Your `Followers` component currently loads its data on `componentDidMount`. It turns out that if you mount an `<Infinite>` component without any data, it will automatically call your callback function to fetch more data.
+
+### Step 1.1: Adding new state data to `Followers`
+In the `getInitialState` method of `Followers`, let's add a few more pieces of state. Let's add a `page` state and initialize it to `1`. Add another state called `loading` and set it to `false`. Finally, add a `followers` state and set it to an empty array.
+
+### Step 1.2: Change the `componentDidMount` method name to `fetchData`. In your AJAX call, add two query string parameters to the GitHub API URL: `page` will come from your state, and `per_page` can be set to anything between 1 and 100. Set it to 50. Your URL should look like this:
+
+`https://api.github.com/users/USER/followers?access_token=XXX&page=1&per_page=50`
+
+### Step 1.3: Loading...
+Before doing the AJAX call in `fetchData`, set the `loading` state to `true`.
+
+### Step 1.4: Change the callback to the AJAX call
+In the callback of the AJAX call, you're currently setting the `followers` state to the response you receive from the GitHub server. Instead, since you already have a followers array, use the `concat` method to add the new items to your existing `this.state.followers` array. Additionally, set the `loading` state to `false`, and the `page` state to whatever it currently is `+ 1`.
+
+### Step 1.5: Importing the library
+Load `react-infinite` in your `Followers` component, and assign it to the variable `Infinite`.
+
+### Step 1.6: Change the `render` method
+In the `render` method, we're currently checking if `this.state.followers` is truthy. We don't need to do that anymore, because we'll always have a list of followers.
+
+Replace your container with an `<Infinite>` container, and pass it the following props:
+
+* `isInfiniteLoading`: take it from your `loading` state
+* `onInfiniteLoad`: point to your `fetchData` method
+* `useWindowAsScrollContainer`: this prop doesn't have a value! It will be set to `true` automatically
+* `elementHeight`: to scroll efficiently, React Infinite needs to know the height of an element. Use your browser's inspector to find the approximate height of your `GithubUser` elements. It's not perfect, but it'll do for now.
+
+Your `render` code should have the following in it now:
+
+```javascript
+<Infinite ...all the props...>
+  {this.state.followers.map(...)}
+</Infinite>
+```
+
+After you've done all these changes, your infinite scroll should be working. React Infinite will call your `fetchData` method as often as needed to display new elements. Every time a new page is fetched, you're incrementing the `page` state so that future page fetches will fetch the next page. Since you're `concat`ing followers, your list will keep growing until there is no more data.
+
+## Optional step: adding a loading indicator
+React Infinite lets you use a [`loadingSpinnerDelegate`](https://github.com/seatgeek/react-infinite#react-node-loadingspinnerdelegate). It's basically a React element that will be displayed below the list when `loading` is `true`.
+
+You can do this as simply as `loadingSpinnerDelegate={<div>LOADING</div>}` or you can go for a CSS animation, or even a GIF.
