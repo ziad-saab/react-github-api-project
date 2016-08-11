@@ -7,19 +7,24 @@ var Followers = React.createClass({
     getInitialState: function() {
         return {};
     },
-    componentDidMount: function() {
+    fetchData: function() {
         var url = `https://api.github.com/users/${this.props.params.username}/followers?access_token=6d7ffda3c063706d6b19b0321903ee347f9c1d8b`;
         var that = this;
 
         $.getJSON(url).then(
             function(response) {
-
-                // console.log('response ', response[0]);
                 that.setState({
                     followers: response
                 });
             });
-        // console.log('HELLO ', this.state.followers);
+    },
+    componentDidMount: function(){
+        this.fetchData();
+    },
+    componentDidUpdate: function(prevProps){
+        if(prevProps.params.username !== this.props.params.username){
+            this.fetchData();
+        }
     },
     render: function() {
         if (!this.state.followers) {
@@ -30,7 +35,6 @@ var Followers = React.createClass({
                 <h3>Followers of {this.props.params.username}</h3>
                 <ul>
                     {this.state.followers.map(function(eachUser){
-                    console.log(eachUser.login);
                        return <GithubUser user={eachUser} key={eachUser.id}/>;
                     })}
                 </ul>
@@ -41,4 +45,3 @@ var Followers = React.createClass({
 });
 
 module.exports = Followers;
-
