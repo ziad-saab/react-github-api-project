@@ -34,7 +34,7 @@ var Repos = React.createClass({
         <div className="followers-page">
             <h2>{this.props.params.username}'s repos:</h2>
             
-            <Infinite isInfiniteLoading={this.state.loading} onInfiniteLoad={this.fetchData} useWindowAsScrollContainer elementHeight={20} infiniteLoadBeginEdgeOffset={100}>
+            <Infinite isInfiniteLoading={this.state.loading} onInfiniteLoad={this.fetchData} useWindowAsScrollContainer elementHeight={20} infiniteLoadBeginEdgeOffset={100} loadingSpinnerDelegate={<div>LOADING...</div>}>
                 
                 {this.state.repos.map(function(repo) {
                     return <GithubRepo key={repo.id} repo={repo}/>

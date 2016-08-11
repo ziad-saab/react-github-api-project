@@ -36,7 +36,7 @@ var Following = React.createClass({
         return (
         <div className="followers-page">
             <h2>People that {this.props.params.username} is following:</h2>
-            <Infinite isInfiniteLoading={this.state.loading} onInfiniteLoad={this.fetchData} useWindowAsScrollContainer elementHeight={90} infiniteLoadBeginEdgeOffset={100}>
+            <Infinite isInfiniteLoading={this.state.loading} onInfiniteLoad={this.fetchData} useWindowAsScrollContainer elementHeight={90} infiniteLoadBeginEdgeOffset={100} loadingSpinnerDelegate={<div>LOADING...</div>}>
                 
                 {this.state.following.map(function(user) {
                     return <GithubUser key={user.id} user={user}/>
