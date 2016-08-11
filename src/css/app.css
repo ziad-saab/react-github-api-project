@@ -111,9 +111,11 @@ a:hover {
 }
 
 img {
-    height: 50px;
+    height: 75px;
     border-radius: 100%;
     box-shadow: 1px 1px 2px black;
+    background-color: white;
+    margin-bottom: 10px;
 }
 
 .followerList {
