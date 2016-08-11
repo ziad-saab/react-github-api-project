@@ -278,3 +278,6 @@ After you've done all these changes, your infinite scroll should be working. Rea
 React Infinite lets you use a [`loadingSpinnerDelegate`](https://github.com/seatgeek/react-infinite#react-node-loadingspinnerdelegate). It's basically a React element that will be displayed below the list when `loading` is `true`.
 
 You can do this as simply as `loadingSpinnerDelegate={<div>LOADING</div>}` or you can go for a CSS animation, or even a GIF.
+
+## Finally
+When you are done, make sure to add infinite scrolling to the following and repos pages. They should work exactly the same way :)
