@@ -105,3 +105,14 @@ h1,h2,h3,h4,h5,h6 {
     margin: 0;
     white-space: nowrap;
 }
+
+.followers_box {
+    display: flex;
+
+}
+
+.follower_link {
+    text-decoration: none;
+    font-family: Helvetica;
+    color: #222;
+}
