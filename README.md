@@ -263,6 +263,7 @@ Replace your container with an `<Infinite>` container, and pass it the following
 * `onInfiniteLoad`: point to your `fetchData` method
 * `useWindowAsScrollContainer`: this prop doesn't have a value! It will be set to `true` automatically
 * `elementHeight`: to scroll efficiently, React Infinite needs to know the height of an element. Use your browser's inspector to find the approximate height of your `GithubUser` elements. It's not perfect, but it'll do for now.
+* `infiniteLoadBeginEdgeOffset`: this sets the amount of pixels from the edge of your container at which more data will be loaded. Set it to `100` so that the data starts loading before you reach the edge (bottom) of the window.
 
 Your `render` code should have the following in it now:
 
