@@ -19,7 +19,7 @@ var Followers = React.createClass({
         });
         
         
-        var url = `https://api.github.com/users/${this.props.params.username}/followers?access_token=6d7ffda3c063706d6b19b0321903ee347f9c1d8b&page=1&per_page=50`;
+        var url = `https://api.github.com/users/${this.props.params.username}/followers?access_token=6d7ffda3c063706d6b19b0321903ee347f9c1d8b&page=${this.state.page}&per_page=50`;
         var that = this;
 
         $.getJSON(url).then(

@@ -40,11 +40,10 @@ var User = React.createClass({
     },
     componentDidMount: function() {
         this.fetchData();
-        this.componentDidUpdate();
     },
     componentDidUpdate: function(prevProps) {
-        if (prevProps) {
-            if (prevProps.username !== this.props.params.username) {
+        if (prevProps.params.username) {
+            if (prevProps.params.username !== this.props.params.username) {
                 this.fetchData();
             }
         }
