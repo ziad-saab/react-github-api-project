@@ -34,7 +34,7 @@ var Repos = React.createClass({
     render: function() {
         return (
             <div>
-                <h3>{this.props.params.username} public repos</h3>
+                <h3>{this.props.params.username}'s public repos</h3>
                 <ul>
                     <Infinite 
                         isInfiniteLoading={this.state.loading}
