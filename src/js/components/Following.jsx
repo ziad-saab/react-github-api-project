@@ -33,7 +33,7 @@ var Following = React.createClass({
     render: function() {
         return (
             <div className="following-page">
-                <h3>{this.props.params.username} follows</h3>
+                <h3>Followed by {this.props.params.username}</h3>
                 <ul>
                     <Infinite 
                         isInfiniteLoading={this.state.loading}
