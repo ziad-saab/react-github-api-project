@@ -28,11 +28,16 @@ var User = React.createClass({
     */
     componentDidMount: function() {
         var that = this; // What's this?? Make sure you remember or understand what this line does
+        //that = this is a way of making the this value, our object, available elsewhere since
+            //this refers to the current scope, i.e. it enables this' value to be used in nested functions
         
-        $.getJSON(`https://api.github.com/users/${this.props.params.username}`)
+        $.getJSON(`https://api.github.com/users/${this.props.params.username}?access_token=8dbd67ccdec639d5803b020db060a7e3d5be27cc`)
+                                                                            // have your access token here
             .then(
                 function(user) {
                     // Why that.setState instead of this.setState??
+                        // because that has the value of our component whereas this, unless bind is used
+                        //will only have a value within the function's scope aka this will be the ajax call
                     that.setState({
                         user: user
                     });
@@ -94,6 +99,7 @@ var User = React.createClass({
                         {stats.map(this.renderStat)}              
                     </ul>
                 </div>
+                {this.props.children}
             </div>
         );
     }
