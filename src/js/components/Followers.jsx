@@ -34,11 +34,11 @@ var Followers = React.createClass({
 		if (!this.state.followers) {
 			return (<div>LOADING FOLLOWERS...</div>);
 		}
-console.log(this.state.followers, "groovy");
+
 		return (
 		    <div className="followers-page">
 		        <h2>Followers of {this.props.params.username}</h2>
-		        <ul>
+		        <ul className="followers-list">
 		            {this.state.followers.map(this.getFollowers)}
 		        </ul>
 		    </div>
