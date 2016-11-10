@@ -2,6 +2,9 @@ var React = require('react');
 var Link = require('react-router').Link;
 
 var Followers = React.createClass({
+	componentDidMount: function(){
+
+	},
 	render: function(){
 		return (
 			<div className="followers-page">
@@ -9,6 +12,7 @@ var Followers = React.createClass({
 			</div>
 		);
 	}
-})
+});
+
 
 module.exports = Followers;
