@@ -106,14 +106,14 @@ h1,h2,h3,h4,h5,h6 {
     white-space: nowrap;
 }
 
-ul.followers-list {
+ul.follow-list {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     flex-flow: column;
 }
 
-a.followers{
+a.follow{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -121,7 +121,7 @@ a.followers{
     text-decoration: none;
 }
 
-a.followers img{
+a.follow img{
     border-radius: 50%;
     max-height: 20vh;
     margin-right: 2em;

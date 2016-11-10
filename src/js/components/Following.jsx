@@ -4,7 +4,7 @@ var $ = require('jquery');
 var GithubUser = require("./GithubUser");
 
 
-var Followers = React.createClass({
+var Following = React.createClass({
 	
     getInitialState: function(){
     	return {};
@@ -15,13 +15,13 @@ var Followers = React.createClass({
 	componentDidMount: function(){
 		var that = this;
 			// that is the this referring to our component
-		 $.getJSON(`https://api.github.com/users/${this.props.params.username}/followers?access_token=8dbd67ccdec639d5803b020db060a7e3d5be27cc`)
+		 $.getJSON(`https://api.github.com/users/${this.props.params.username}/following?access_token=8dbd67ccdec639d5803b020db060a7e3d5be27cc`)
 			 .then(
-			 	function(followers){
+			 	function(following){
 				 	
 
 				 	that.setState({
-                        followers: followers
+                        following: following
                     });
 			 	}
 			 );
@@ -32,15 +32,15 @@ var Followers = React.createClass({
 	},
 	render: function(){
 		
-		if (!this.state.followers) {
-			return (<div>LOADING FOLLOWERS...</div>);
+		if (!this.state.following) {
+			return (<div>LOADING FOLLOWING...</div>);
 		}
 
 		return (
-		    <div className="followers-page">
-		        <h2>Followers of {this.props.params.username}</h2>
+		    <div className="following-page">
+		        <h2>{this.props.params.username} is Following</h2>
 		        <ul className="follow-list">
-		            {this.state.followers.map(this.getFollowers)}
+		            {this.state.following.map(this.getFollowers)}
 		        </ul>
 		    </div>
 		);
@@ -48,4 +48,4 @@ var Followers = React.createClass({
 });
 
 
-module.exports = Followers;
+module.exports = Following;
