@@ -26,6 +26,7 @@ var Followers = React.createClass({
 			 	}
 			 );
 	},
+	
 	getFollowers: function(follow){
 		return <GithubUser user={follow} key={follow.id}/>;
 	},
