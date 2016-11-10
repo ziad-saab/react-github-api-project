@@ -8,6 +8,10 @@ h1,h2,h3,h4,h5,h6 {
     font-weight: 400;
 }
 
+body a:hover{
+    color: rgba(0,0,0, .5);
+}
+
 .main-header {
     background-color: #222;
     color: #fff;
@@ -113,16 +117,31 @@ ul.follow-list {
     flex-flow: column;
 }
 
-a.follow{
+    a.follow{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: orange;
+        text-decoration: none;
+    }
+
+        a.follow img{
+            border-radius: 50%;
+            max-height: 20vh;
+            margin-right: 2em;
+        }
+
+ul.repos-list{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: orange;
-    text-decoration: none;
+    flex-flow: column;
 }
 
-a.follow img{
-    border-radius: 50%;
-    max-height: 20vh;
-    margin-right: 2em;
+    a.repo{
+        margin: .5em 0;
+        color: green;
+        text-decoration: none;
+    }
+
+.fa{
+    
 }
