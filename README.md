@@ -15,7 +15,7 @@ Let's take a look at the code that's already there. Many of the starter files sh
 * `public/index.html`: File that gets served thru Webpack after having been filled in
 * `src/index.js`: This file is the entry point for the app. It puts our app on the screen!
 * `src/components/*`: All the components of our application.
-* `src/index.css`: The styles for our app. Check it out to see how your starter app is being styled, and add to it to complete the project. Notice that we don't <link> this CSS from the index? How does this work?? Make sure you understand!!!
+* `src/index.css`: The styles for our app. Check it out to see how your starter app is being styled, and add to it to complete the project. Notice that we don't `<link>` this CSS from the index? How does this work?? Make sure you understand!!!
 
 **To get started coding on this project, remember the following steps**:
 
