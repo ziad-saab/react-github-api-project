@@ -24,7 +24,9 @@ const routes = (
     <Router history={browserHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={Search}/>
-            <Route path="user/:username" component={User}/>
+            <Route path="user/:username" component={User}>
+              <Route path="followers" component={Followers} />
+           </Route>
         </Route>
     </Router>
 );

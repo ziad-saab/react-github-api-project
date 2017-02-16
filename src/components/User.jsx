@@ -89,6 +89,7 @@ class User extends React.Component {
                         {stats.map(this.renderStat)}
                     </ul>
                 </div>
+                <div className="followers">{this.props.children}</div>
             </div>
         );
     }
