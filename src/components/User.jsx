@@ -19,8 +19,8 @@ class User extends React.Component {
     the data -- in the callback -- we call `setState` to put the user data in our state. This will trigger a re-render.
     When `render` gets called again, `this.state.user` exists and we get the user info display instead of "LOADING..."
     */
-    componentDidMount() {
-        fetch(`https://api.github.com/users/${this.props.params.username}`)
+    fetchData() {
+        fetch(`https://api.github.com/users/${this.props.params.username}?access_token=d9b73e1b5ed5cbd896765964b71c3edc083ed288`)
         .then(response => response.json())
         .then(
             user => {
@@ -33,6 +33,15 @@ class User extends React.Component {
         );
     }
 
+    componentDidMount(){
+      this.fetchData();
+   }
+
+   componentDidUpdate(prevProps, prevState){
+      if(prevProps.username !== this.props.params.username){
+         this.fetchData();
+      }
+   }
     /*
     This method is used as a mapping function. Eventually this could be factored out to its own component.
     */
@@ -89,7 +98,7 @@ class User extends React.Component {
                         {stats.map(this.renderStat)}
                     </ul>
                 </div>
-                <div className="followers">{this.props.children}</div>
+                <div>{this.props.children}</div>
             </div>
         );
     }

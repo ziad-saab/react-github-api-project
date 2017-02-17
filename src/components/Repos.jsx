@@ -1,22 +1,21 @@
 import React from "react";
-import GithubUser from "./GithubUser";
+import GithubRepo from "./GithubRepo";
 
 
 
-class Followers extends React.Component{
+class Repos extends React.Component{
    constructor(){
       super();
       this.state={};
    }
    fetchData(){
-      var url = `https://api.github.com/users/${this.props.params.username}/followers?access_token=d9b73e1b5ed5cbd896765964b71c3edc083ed288`;
-
+      var url = `https://api.github.com/users/${this.props.params.username}/repos?access_token=d9b73e1b5ed5cbd896765964b71c3edc083ed288`;
       fetch(url)
       .then(response => response.json())
       .then(
-         followers => {
+         repo => {
             this.setState({
-               followers: followers
+               repo: repo
             })
          }
       )
@@ -30,18 +29,18 @@ class Followers extends React.Component{
       }
    }
    render(){
-      if(!this.state.followers){
+      if(!this.state.repo){
          return <div>LOADING FOLLOWERS....</div>
       }
       return(
-         <div className = "followers-page">
-            <h3>Followers of {this.props.params.username}</h3>
+         <div className="repo-page">
+            <h3>{this.props.params.username} repos include </h3>
             <ul>
-               {this.state.followers.map((followersInfo, i) => <GithubUser user={followersInfo} key={i}/>)}
+               {this.state.repo.map((repoInfo, i) => <GithubRepo repo={repoInfo} key={i}/>)}
             </ul>
          </div>
       )
    }
 }
 
-export default Followers;
+export default Repos;
