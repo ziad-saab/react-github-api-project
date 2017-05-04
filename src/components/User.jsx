@@ -1,4 +1,5 @@
 import React from 'react';
+// import Followers from './Followers'
 import { Link } from 'react-router';
 
 class User extends React.Component {
@@ -6,6 +7,21 @@ class User extends React.Component {
         super();
         this.state = {};
     }
+    
+    fetchUserInfo = () => {
+         fetch(`https://api.github.com/users/${this.props.params.username}`)
+        .then(response => response.json())
+        .then(
+            user => {
+                // How can we use `this` inside a callback without binding it??
+                // Make sure you understand this fundamental difference with arrow functions!!!
+                this.setState({
+                    user: user
+                });
+            }
+        );
+    }
+
 
     /*
     This method will be called by React after the first render. It's a perfect place to load
@@ -20,17 +36,13 @@ class User extends React.Component {
     When `render` gets called again, `this.state.user` exists and we get the user info display instead of "LOADING..."
     */
     componentDidMount() {
-        fetch(`https://api.github.com/users/${this.props.params.username}`)
-        .then(response => response.json())
-        .then(
-            user => {
-                // How can we use `this` inside a callback without binding it??
-                // Make sure you understand this fundamental difference with arrow functions!!!
-                this.setState({
-                    user: user
-                });
-            }
-        );
+       this.fetchUserInfo();
+    }
+    
+    componentDidUpdate(prevProps) {
+        if(prevProps.params.username !== this.props.params.username){
+            this.fetchUserInfo();
+        }
     }
 
     /*
@@ -77,19 +89,26 @@ class User extends React.Component {
 
         // Look in index.css for the styles that make this look like it does
         return (
-            <div className="user-page">
+            // <div className="user-page">
                 <div className="user-info">
-                    <Link className="user-info__text" to={`/user/${user.login}`}>
-                        <img className="user-info__avatar" src={user.avatar_url} alt={`${user.login} avatar`}/>
-                        <h2 className="user-info__title">{user.login} ({user.name})</h2>
-                        <p className="user-info__bio">{user.bio}</p>
-                    </Link>
-
-                    <ul className="user-info__stats">
-                        {stats.map(this.renderStat)}
-                    </ul>
+                    <header>
+                        <Link className="user-info__text" to={`/user/${user.login}`}>
+                            <img className="user-info__avatar" src={user.avatar_url} alt={`${user.login} avatar`}/>
+                            <h2 className="user-info__title">{user.login} ({user.name})</h2>
+                            <p className="user-info__bio">{user.bio}</p>
+                        </Link>
+    
+                        <ul className="user-info__stats">
+                            {stats.map(this.renderStat)}
+                        </ul>
+                        <hr/>
+                    </header>
+                    
+                    <main>
+                        {this.props.children}
+                    </main>
                 </div>
-            </div>
+            // </div>
         );
     }
 };
