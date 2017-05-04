@@ -8,6 +8,10 @@ h1,h2,h3,h4,h5,h6 {
     font-weight: 400;
 }
 
+ul {
+    list-style: none;
+}
+
 .main-header {
     background-color: #222;
     color: #fff;
@@ -105,3 +109,50 @@ h1,h2,h3,h4,h5,h6 {
     margin: 0;
     white-space: nowrap;
 }
+
+
+/*
+--------------------------
+GithubUser component
+--------------------------
+*/
+
+.githubUser-info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
+}
+
+.githubUser-info > img {
+    margin-right: 1em;
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+}
+
+/*
+--------------------------
+GithubRepo component
+--------------------------
+*/
+
+.githubRepo > a {
+    display:flex;
+    align-items: center;
+    color: #000;
+    text-decoration: none;
+    margin: 2.5em 0;
+    font-size: 14px;
+}
+
+.githubRepo p {
+    margin: 0 0;   
+}
+
+.githubRepo p:last-child {
+    border: inset thin black;
+    margin-left: 5px;
+    padding: 0 2px;
+}
+
