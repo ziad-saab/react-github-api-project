@@ -9,6 +9,7 @@ If the URL is only / then the IndexRoute's component will be the child (Search c
 If the URL is /user/:username then the User component will be displayed.
 */
 class App extends React.Component {
+    
     render() {
         return (
             <div className="main-app">
@@ -17,8 +18,10 @@ class App extends React.Component {
                 </header>
                 <main className="main-content">
                     {this.props.children}
-                </main>
+                    
+                </main> 
             </div>
+            
         );
     }
 };
