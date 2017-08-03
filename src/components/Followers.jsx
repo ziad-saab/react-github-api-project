@@ -53,7 +53,7 @@ class Followers extends React.Component {
                     <div className="followers-header">
                         <h2>Loading followers of {this.props.params.username}</h2>
                     </div> : null}
-                <Infinite className="followers-scroll" isInfiniteLoading={this.state.loading} onInfiniteLoad={this.fetchData.bind(this)} useWindowAsScrollContainer={true} elementHeight={50} infiniteLoadBeginEdgeOffset={this.state.infiniteLoadBeginEdgeOffsetState} loadingSpinnerDelegate={<img src="https://media.giphy.com/media/3o7bu8sRnYpTOG1p8k/giphy.gif" alt="Loading" width="42" height="42"/>} >
+                <Infinite className="followers-scroll" isInfiniteLoading={this.state.loading} onInfiniteLoad={this.fetchData.bind(this)} useWindowAsScrollContainer={true} elementHeight={50} infiniteLoadBeginEdgeOffset={this.state.infiniteLoadBeginEdgeOffsetState} loadingSpinnerDelegate={ <div className="loading-div"> <img src="https://media.giphy.com/media/3o7bu8sRnYpTOG1p8k/giphy.gif" alt="Loading" width="42" height="42"/> </div>} >
                     {
                         this.state.followers.map(
                             /* INSERT CODE HERE TO RETURN A NEW <GithubUser/> */

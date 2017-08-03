@@ -33,7 +33,7 @@ class User extends React.Component {
     }
 
     fetchData(){
-        var API_KEY = "4d0826ee9c11ced776a6c9ff649d34fc0f30580f";
+        var API_KEY = "";
         fetch(`https://api.github.com/users/${this.props.params.username}?access_token=${API_KEY}`)
             .then(response => response.json())
             .then(

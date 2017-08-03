@@ -5,9 +5,9 @@ class GithubRepo extends React.Component {
         return (
             <div className="repo-div">
                 <a href={this.props.repo.html_url}>
-                    <p>
+                    <span>
                         {this.props.repo.full_name}
-                    </p>
+                    </span>
                 </a>
                 {this.props.repo.stargazers_count}
                 <img src="https://i.imgur.com/g0gbFkV.png" alt="stars" className="repo-star"/>
