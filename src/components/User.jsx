@@ -19,18 +19,30 @@ class User extends React.Component {
     the data -- in the callback -- we call `setState` to put the user data in our state. This will trigger a re-render.
     When `render` gets called again, `this.state.user` exists and we get the user info display instead of "LOADING..."
     */
-    componentDidMount() {
+    _fetchData() {
         fetch(`https://api.github.com/users/${this.props.params.username}`)
         .then(response => response.json())
         .then(
             user => {
                 // How can we use `this` inside a callback without binding it??
                 // Make sure you understand this fundamental difference with arrow functions!!!
+                //Arrow function conserves the this, so no need to bind
+                //setState invokes render after changing state always
                 this.setState({
                     user: user
                 });
             }
         );
+    }
+    
+    componentDidMount(){
+        this._fetchData();
+    }
+    
+    componentDidUpdate(prevProps, prevState){
+        if(prevProps.params.username !== this.props.params.username){
+            this._fetchData();
+        }
     }
 
     /*
@@ -49,6 +61,8 @@ class User extends React.Component {
 
     render() {
         // If the state doesn't have a user key, it means the AJAX didn't complete yet. Simply render a LOADING indicator.
+        //the first iteration of render() and then it goes to comonentDidMount
+        //Question why not fetch in constructor or componentWillMount()?
         if (!this.state.user) {
             return (<div className="user-page">LOADING...</div>);
         }
@@ -84,10 +98,13 @@ class User extends React.Component {
                         <h2 className="user-info__title">{user.login} ({user.name})</h2>
                         <p className="user-info__bio">{user.bio}</p>
                     </Link>
-
                     <ul className="user-info__stats">
                         {stats.map(this.renderStat)}
                     </ul>
+                </div>
+                <div className="followers-list-box">
+                    {/*children is the followers component from index*/}
+                    {this.props.children}
                 </div>
             </div>
         );

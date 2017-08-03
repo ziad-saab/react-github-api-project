@@ -18,6 +18,14 @@ class Search extends React.Component {
     }
     _handleSubmit(e) {
         e.preventDefault();
+        //pushing the the new link after button press into history??
+        //Why? Isnt browser supposed to do this?
+        //Remember refs.userInput.value is the value the user
+        
+        //From ReactTraining History doc on github
+        //history objects may be used programmatically change the current location (bookmarked)
+        //So the url will change and the route for /user/:username in index will fire taking us to component user
+        //history.push(path, [state]), no state in this case
         history.push(`/user/${this.refs.userInput.value}`)
     }
 

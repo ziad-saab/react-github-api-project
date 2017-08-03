@@ -16,6 +16,7 @@ class App extends React.Component {
                     <h1><Link to="/">React GitHub Project</Link></h1>
                 </header>
                 <main className="main-content">
+                    {/*this.props is the Search component, we go there next*/}
                     {this.props.children}
                 </main>
             </div>
