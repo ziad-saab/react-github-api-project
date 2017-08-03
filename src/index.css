@@ -105,3 +105,54 @@ h1,h2,h3,h4,h5,h6 {
     margin: 0;
     white-space: nowrap;
 }
+ /*GithubUser styles*/
+ 
+ .GithubUserLink {
+     display: flex;
+     flex-direction: row;
+     text-decoration: none;
+     background-color: red;
+ }
+ 
+ .githubUserDisplay {
+     background-color: red;
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+     align-items: center;
+     height: 100px;
+     margin: 25px;
+     
+ }
+
+ .githubUser-name {
+     display: flex;
+     text-decoration: none;
+     color: black;
+     padding-left: 25px;
+ }
+ 
+ .githubUser-avatar {
+     display: flex;
+     width: 100px;
+     border-radius: 100px;
+ }
+ 
+ 
+ /*Followers component styles */
+ 
+ .followers-page ul {
+     text-decoration: none;
+     list-style: none;
+ }
+ 
+ .followers-page li {
+     display: flex;
+     flex-direction: row;
+     flex-wrap: wrap;
+ }
+ 
+ .followers-page a {
+     text-decoration: none;
+ }
+ 
