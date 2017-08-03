@@ -9,7 +9,7 @@ class Following extends React.Component{
     }
 
     componentDidMount(){
-        var API_KEY = "";
+        var API_KEY = "4d0826ee9c11ced776a6c9ff649d34fc0f30580f";
         fetch(`https://api.github.com/users/${this.props.params.username}/following?access_token=${API_KEY}`)
             .then( r => r.json() )
             .then( (data) => {
@@ -18,7 +18,6 @@ class Following extends React.Component{
     }
 
     render(){
-          console.log("Following render");
           if (!this.state.following){
               return (
                   <div>
