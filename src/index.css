@@ -8,6 +8,11 @@ h1,h2,h3,h4,h5,h6 {
     font-weight: 400;
 }
 
+a {
+    color: black;
+    text-decoration: none;
+}
+
 .main-header {
     background-color: #222;
     color: #fff;
@@ -104,4 +109,59 @@ h1,h2,h3,h4,h5,h6 {
 .user-info__stat p {
     margin: 0;
     white-space: nowrap;
+}
+
+.followers-header, .following-header, .repos-header {
+    display: flex;
+    justify-content: center;
+}
+
+.followers-scroll, .following-scroll, .repos-scroll {
+    display: flex;
+    justify-content: center;
+}
+
+.user-img {
+    height: 45px;
+    border-radius: 50%;
+    margin: 0 1rem;
+}
+
+.user-div {
+    width: 20rem;
+    border: black 0.1rem solid;
+    margin: 0.2rem 0;
+    padding: 0.3rem 0;
+    background-color: dimgray;
+}
+
+.link-user-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.repo-div {
+    width: 35rem;
+    display: flex;
+    border: black 0.2rem solid;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0.5rem 0;
+    background-color: mintcream;
+}
+
+.loading-div {
+    display: flex;
+    justify-content: center;
+}
+
+.repo-div a {
+    margin: 0 0.5rem;
+}
+
+.repo-star {
+    margin: 0 0.4rem;
 }

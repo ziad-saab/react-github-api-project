@@ -9,12 +9,13 @@ class Followers extends React.Component {
         this.state = {
             page: 1,
             loading: false,
-            followers: []
+            followers: [],
+            infiniteLoadBeginEdgeOffsetState : 10
         };
     }
 
     fetchData(){
-        var API_KEY = "4d0826ee9c11ced776a6c9ff649d34fc0f30580f";
+        var API_KEY = "";
 
         this.setState({
             loading: true
@@ -23,11 +24,21 @@ class Followers extends React.Component {
         fetch(`https://api.github.com/users/${this.props.params.username}/followers?access_token=${API_KEY}&page=${this.state.page}&per_page=50`)
             .then( r => r.json() )
             .then( (data) => {
-                this.setState({
-                    followers : this.state.followers.concat(data), //data already comes as an array
-                    loading : false,
-                    page : this.state.page + 1
-                });
+
+                if (data.length > 0){ //i.e. if we have more new array items from the fetch
+                    this.setState({
+                        followers : this.state.followers.concat(data), //data already comes as an array
+                        loading : false,
+                        page : this.state.page + 1
+                    });
+                }
+                else { //i.e. if WE DO NOT have any more new array items then stop loading from the infinite scroll
+                    this.setState({
+                        infiniteLoadBeginEdgeOffsetState: undefined
+                    });
+                }
+
+
             });
     }
 
@@ -35,12 +46,14 @@ class Followers extends React.Component {
 
         return (
             <div className="followers-page" >
-                <h2>Followers of {this.props.params.username}</h2>
+                <div className="followers-header">
+                    <h2>Followers of {this.props.params.username}</h2>
+                </div>
                 {this.state.loading === true ?
-                    <div>
+                    <div className="followers-header">
                         <h2>Loading followers of {this.props.params.username}</h2>
                     </div> : null}
-                <Infinite isInfiniteLoading={this.state.loading} onInfiniteLoad={this.fetchData.bind(this)} useWindowAsScrollContainer={true} elementHeight={350} infiniteLoadBeginEdgeOffset={100}>
+                <Infinite className="followers-scroll" isInfiniteLoading={this.state.loading} onInfiniteLoad={this.fetchData.bind(this)} useWindowAsScrollContainer={true} elementHeight={50} infiniteLoadBeginEdgeOffset={this.state.infiniteLoadBeginEdgeOffsetState} loadingSpinnerDelegate={<img src="https://media.giphy.com/media/3o7bu8sRnYpTOG1p8k/giphy.gif" alt="Loading" width="42" height="42"/>} >
                     {
                         this.state.followers.map(
                             /* INSERT CODE HERE TO RETURN A NEW <GithubUser/> */
