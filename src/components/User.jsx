@@ -20,17 +20,31 @@ class User extends React.Component {
     When `render` gets called again, `this.state.user` exists and we get the user info display instead of "LOADING..."
     */
     componentDidMount() {
-        fetch(`https://api.github.com/users/${this.props.params.username}`)
-        .then(response => response.json())
-        .then(
-            user => {
-                // How can we use `this` inside a callback without binding it??
-                // Make sure you understand this fundamental difference with arrow functions!!!
-                this.setState({
-                    user: user
-                });
-            }
-        );
+        this.fetchData();
+    }
+
+    componentDidUpdate(prevProps){ //TODO: LEARN THIS! Even though this is a parent of the followers, when the URL changes the params.username changes! HOWEVER, just because a param changes does not mean that a re-render happens (it is not state). However, componentDidUpdate does get called and from this we can set the state via fetchData() No need for messy parent-child funtion passing.
+        if (prevProps.params.username !== this.props.params.username){
+            console.log("USERS componentDidUpdate");
+            console.log(prevProps.params.username);
+            console.log(this.props.params.username);
+            this.fetchData();
+        }
+    }
+
+    fetchData(){
+        var API_KEY = "4d0826ee9c11ced776a6c9ff649d34fc0f30580f";
+        fetch(`https://api.github.com/users/${this.props.params.username}?access_token=${API_KEY}`)
+            .then(response => response.json())
+            .then(
+                user => {
+                    // How can we use `this` inside a callback without binding it??
+                    // Make sure you understand this fundamental difference with arrow functions!!!
+                    this.setState({
+                        user: user
+                    });
+                }
+            );
     }
 
     /*
@@ -89,6 +103,7 @@ class User extends React.Component {
                         {stats.map(this.renderStat)}
                     </ul>
                 </div>
+                {this.props.children}
             </div>
         );
     }
