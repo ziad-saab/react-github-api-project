@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import GithubUser from './GithubUser';
 
-class Followers extends React.Component {
+class Following extends React.Component {
     
     constructor() {
         super();
@@ -11,12 +11,12 @@ class Followers extends React.Component {
     
     fetchData() {
         //console.log(this)
-        fetch(`https://api.github.com/users/${this.props.params.username}/followers`)
+        fetch(`https://api.github.com/users/${this.props.params.username}/following`)
         .then(response => response.json())
         .then(
-            followers => {
+            following => {
                 this.setState({
-                    followers: followers
+                    following: following 
                 });
             }
         )
@@ -36,24 +36,28 @@ class Followers extends React.Component {
     }
     
     render() {
-        if (!this.state.followers) {
-            return <div>LOADING FOLLOWERS...</div>;
+        if (!this.state.following) {
+            return <div>LOADING FOLLOWING...</div>;
         }
         //console.log(this.state.followers.object.username);
         return (
-            <div className="followers-page">
-                <h3>Followers of {this.props.params.username}</h3>
-                <div className="followersMap">
-                    {this.state.followers.map(follower => { 
+            <div className="following-page">
+                <h3>Followed by {this.props.params.username}</h3>
+                <div className="followingMap">
+                    {this.state.following.map(followed => { 
                     return(
-                        <div className="FollowerDiv" key={follower.id}>
-                            <GithubUser user={follower.login} avatar_url={follower.avatar_url} img src={follower.avatar_url} />  
+                        <div key={followed.id}>
+                            <GithubUser user={followed.login} avatar_url={followed.avatar_url} img src={followed.avatar_url} />  
+                            
+                          
                         </div>
                         )
                     })}
+                      
+                  
                 </div>    
             </div>
         );
     }
 }
-export default Followers;
+export default Following;

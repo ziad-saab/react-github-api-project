@@ -35,6 +35,7 @@ class User extends React.Component {
     
     componentDidMount() {
         this.fetchData();
+        // console.log(this.user)
     }
     
     componentDidUpdate(prevProps, prevState) {

@@ -141,17 +141,17 @@ h1,h2,h3,h4,h5,h6 {
  
  /*Followers component styles */
  
- .followers-page ul {
-     text-decoration: none;
-     list-style: none;
- }
+.followersMap {
+    background-color: blue;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
  
- .followers-page li {
-     display: flex;
-     flex-direction: row;
-     flex-wrap: wrap;
- }
- 
+.followerDiv {
+    width: 20vw;
+    
+} 
  .followers-page a {
      text-decoration: none;
  }
