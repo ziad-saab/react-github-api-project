@@ -11,37 +11,41 @@ class Followers extends React.Component{
             stop:false,
             followersArray: []
         };
-        this._fetchData = this._fetchData.bind(this);
+        //this._fetchData = this._fetchData.bind(this);
     }
     
     //always bounded via  = () => {} this syntax
     _fetchData = () =>{
         //Before doing the AJAX call in fetchData, set the loading state to true
-        if(!this.state.stop){
+        console.log(this.state.loading, "= Current Loading state")
+        //if(!this.state.stop){
             this.setState({
                 loading: true
-            });
-        }
-        else{
+             });
+//        }
+/*        else{
             this.setState({
                 loading: false
             });
-        }
-        //var tempArray = [];
-        var API_TOKEN = 'e681da67137ba7c388bc0d86c25ad9e0e03f2391';
-        if(!this.state.stop){
+        }*/
+        
+        const API_TOKEN = 'e681da67137ba7c388bc0d86c25ad9e0e03f2391';
+        //if(!this.state.stop){
             fetch(`https://api.github.com/users/${this.props.params.username}/followers?access_token=${API_TOKEN}&page=${this.state.page}&per_page=5`)
             .then(response => response.json())
             .then(response => {
                 //the response is an array of objects, each object being a follower
                 console.log(response, "the response from api");
                 console.log(this.state.page, " = Current page");
-                if(this.state.page !== 1 && response.length === 0) {
+/*                if(this.state.page !== 1 && response.length === 0) {
                     this.setState({
                         stop: true
                     });                     
                 }
-                else {
+                else {*/
+                    console.log("Array Before concat", this.state.followersArray)
+                    console.log("Array After concat", this.state.followersArray.concat(response))
+    
                     this.setState({
                         //YOU KEEP MISTAKING THIS
                         //EVEN INSIDE setState you gotta use this.setState
@@ -50,23 +54,24 @@ class Followers extends React.Component{
                         loading: false,
                         stop:false
                     });
-                }
+                //}
             });
-        }
+        //}
     }
     
     _renderFollower(follower){
-        console.log(follower.id, " = current follower");
+        //console.log(follower.id, " = current follower");
         return(
-                /*<li className="followers-list" key={follower.id}>*/
-                    <GithubUser user={follower} key={follower.id}/>  
-                /*</li>*/
+                <li className="followers-list" key={follower.id}>
+                    <GithubUser user={follower}/>  
+                </li>
         );
     }
     
-    componentDidMount(){
+/*    componentDidMount(){
+        console.log('In mount')
         this._fetchData();
-    }
+    }*/
     
     componentDidUpdate(prevProps, prevState){
         if(prevProps.params.username !== this.props.params.username){
@@ -92,20 +97,22 @@ class Followers extends React.Component{
             return (<div className="followers-page">LOADING Followers...</div>);
         }*/
         
+        //console.log('this.state.followersArray', this.state.followersArray)
+        console.log('In render')
         return(
             <div className="followers-page">
                 <h3>Followers of {this.props.params.username}</h3>
-                {/*<ul> {The ul must be outside infinite or infinte loop, will keep repeating}*/}
+                <ul> 
                     <Infinite   isInfiniteLoading={this.state.loading}
                                 onInfiniteLoad={this._fetchData}
                                 useWindowAsScrollContainer
                                 elementHeight={30}
                                 infiniteLoadBeginEdgeOffset={50}
                                 loadingSpinnerDelegate={this._loadingSign(this.state.loading)}>
-                            {/*_renderFollower will use the github user component*/}
-                            {this.state.followersArray.map(this._renderFollower.bind(this))}
+                            { this.state.followersArray.map(this._renderFollower)}
                     </Infinite>
-                {/*</ul>*/}{/*Infinite with ul and */}
+                    
+                </ul>
             </div>
         );
     }
