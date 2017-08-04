@@ -144,8 +144,8 @@ h1,h2,h3,h4,h5,h6 {
  
  /*Followers component styles */
  
-.followersMap {
-    background-color: blue;
+.followersMap, .followingMap {
+    /*background-color: blue;*/
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
