@@ -11,6 +11,7 @@ Why are we doing this instead of using a <Link>? The answer is straightforward, 
 */
 class Search extends React.Component {
     constructor(props) {
+        //Ask ziad why are we passing a prop
         super(props);
 
         // Why do we need to do this?? Make sure you understand!!!

@@ -1,37 +1,119 @@
 import React from 'react';
 import GithubUser from './GithubUser'
+var Infinite = require('react-infinite');
 
 class Followers extends React.Component{
     constructor(){
         super();
-        this.state = {};
+        this.state = {
+            page: 1,
+            loading: false,
+            stop:false,
+            followersArray: []
+        };
+        this._fetchData = this._fetchData.bind(this);
     }
     
-    _fetchData() {
-        //this.props.params.username is the parameter username 
-        //from the url we are on, i.e. /user/:username
+    //always bounded via  = () => {} this syntax
+    _fetchData = () =>{
+        //Before doing the AJAX call in fetchData, set the loading state to true
+        if(!this.state.stop){
+            this.setState({
+                loading: true
+            });
+        }
+        else{
+            this.setState({
+                loading: false
+            });
+        }
+        //var tempArray = [];
         var API_TOKEN = 'e681da67137ba7c388bc0d86c25ad9e0e03f2391';
-        fetch(`https://api.github.com/users/${this.props.params.username}/followers?access_token=${API_TOKEN}`)
-        .then(response => response.json())
-        .then(response => {
-            //the response is an array of objects, each object being a follower
-            console.log(response, "the response from api")
-                this.setState({
-                    followersArray: response
-                });
-            }
-        );
+        if(!this.state.stop){
+            fetch(`https://api.github.com/users/${this.props.params.username}/followers?access_token=${API_TOKEN}&page=${this.state.page}&per_page=5`)
+            .then(response => response.json())
+            .then(response => {
+                //the response is an array of objects, each object being a follower
+                console.log(response, "the response from api");
+                console.log(this.state.page, " = Current page");
+                if(this.state.page !== 1 && response.length === 0) {
+                    this.setState({
+                        stop: true
+                    });                     
+                }
+                else {
+                    this.setState({
+                        //YOU KEEP MISTAKING THIS
+                        //EVEN INSIDE setState you gotta use this.setState
+                        followersArray: this.state.followersArray.concat(response),
+                        page: this.state.page + 1,
+                        loading: false,
+                        stop:false
+                    });
+                }
+            });
+        }
     }
     
     _renderFollower(follower){
+        console.log(follower.id, " = current follower");
         return(
-                <li className="followers-list" key={follower.id}>
-                    <GithubUser user={follower}/>  
-                </li>
+                /*<li className="followers-list" key={follower.id}>*/
+                    <GithubUser user={follower} key={follower.id}/>  
+                /*</li>*/
         );
     }
     
-    /*
+    componentDidMount(){
+        this._fetchData();
+    }
+    
+    componentDidUpdate(prevProps, prevState){
+        if(prevProps.params.username !== this.props.params.username){
+            this._fetchData();
+        }
+    }
+    
+    _loadingSign = (loadState) =>{
+        if(loadState){
+            return(<div>LOADING</div>)
+        }
+        else{
+            return(<div>LOADING COMPLETE</div>)
+        }
+    }
+
+    render(){
+        //In the render method, we're currently checking if this.state.followers is truthy. 
+        //We don't need to do that anymore, because we'll always have a list of followers.
+        //^^Ask Ziad or TAs about this --always have a list of followers 
+        //if the followersArray of state doesnt exist yet, i.e: is undefined
+        /*if(!this.state.followersArray){ 
+            return (<div className="followers-page">LOADING Followers...</div>);
+        }*/
+        
+        return(
+            <div className="followers-page">
+                <h3>Followers of {this.props.params.username}</h3>
+                {/*<ul> {The ul must be outside infinite or infinte loop, will keep repeating}*/}
+                    <Infinite   isInfiniteLoading={this.state.loading}
+                                onInfiniteLoad={this._fetchData}
+                                useWindowAsScrollContainer
+                                elementHeight={30}
+                                infiniteLoadBeginEdgeOffset={50}
+                                loadingSpinnerDelegate={this._loadingSign(this.state.loading)}>
+                            {/*_renderFollower will use the github user component*/}
+                            {this.state.followersArray.map(this._renderFollower.bind(this))}
+                    </Infinite>
+                {/*</ul>*/}{/*Infinite with ul and */}
+            </div>
+        );
+    }
+}
+
+export default Followers;
+
+/*
     Read the github page for the this repo to understand why we need componentDidUpdate
     In Step 6: a while bug has appeared. Lazy me wont google it, its bookmarked
     EDIT: I will just put it here
@@ -52,32 +134,4 @@ class Followers extends React.Component{
     Move the logic from componentDidMount to another method called fetchData (above)
     Call fetchData from componentDidMount
     Implement componentDidUpdate and call fetchData again but conditionally, only if the username prop has changed.
-    */
-    componentDidMount(){
-        this._fetchData();
-    }
-    
-    componentDidUpdate(prevProps, prevState){
-        if(prevProps.params.username !== this.props.params.username){
-            this._fetchData();
-        }
-    }
-
-    render(){
-        //if the followersArray of state doesnt exist yet, i.e: is undefined
-        if(!this.state.followersArray){ 
-            return (<div className="followers-page">LOADING Followers...</div>);
-        }
-        return(
-            <div className="followers-page">
-                <h3>Followers of {this.props.params.username}</h3>
-                <ul>
-                    {/*_renderFollower will use the github user component*/}
-                    {this.state.followersArray.map(this._renderFollower.bind(this))} 
-                </ul>
-            </div>
-        );
-    }
-}
-
-export default Followers;
+*/
