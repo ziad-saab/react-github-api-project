@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+const API_TOKEN = 'e681da67137ba7c388bc0d86c25ad9e0e03f2391';
 
 class User extends React.Component {
     constructor() {
@@ -20,7 +21,6 @@ class User extends React.Component {
     When `render` gets called again, `this.state.user` exists and we get the user info display instead of "LOADING..."
     */
     _fetchData() {
-        var API_TOKEN = 'e681da67137ba7c388bc0d86c25ad9e0e03f2391';
         fetch(`https://api.github.com/users/${this.props.params.username}?access_token=${API_TOKEN}`)
         .then(response => response.json())
         .then(

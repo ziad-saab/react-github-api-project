@@ -8,8 +8,8 @@ class Followers extends React.Component{
         this.state = {
             page: 1,
             loading: false,
-            stop:false,
-            followersArray: []
+            followersArray: [],
+            infiniteOffset: 100
         };
         //this._fetchData = this._fetchData.bind(this);
     }
@@ -18,45 +18,33 @@ class Followers extends React.Component{
     _fetchData = () =>{
         //Before doing the AJAX call in fetchData, set the loading state to true
         console.log(this.state.loading, "= Current Loading state")
-        //if(!this.state.stop){
             this.setState({
                 loading: true
              });
-//        }
-/*        else{
-            this.setState({
-                loading: false
-            });
-        }*/
+
         
         const API_TOKEN = 'e681da67137ba7c388bc0d86c25ad9e0e03f2391';
-        //if(!this.state.stop){
-            fetch(`https://api.github.com/users/${this.props.params.username}/followers?access_token=${API_TOKEN}&page=${this.state.page}&per_page=5`)
-            .then(response => response.json())
-            .then(response => {
-                //the response is an array of objects, each object being a follower
-                console.log(response, "the response from api");
-                console.log(this.state.page, " = Current page");
-/*                if(this.state.page !== 1 && response.length === 0) {
-                    this.setState({
-                        stop: true
-                    });                     
-                }
-                else {*/
-                    console.log("Array Before concat", this.state.followersArray)
-                    console.log("Array After concat", this.state.followersArray.concat(response))
-    
-                    this.setState({
-                        //YOU KEEP MISTAKING THIS
-                        //EVEN INSIDE setState you gotta use this.setState
-                        followersArray: this.state.followersArray.concat(response),
-                        page: this.state.page + 1,
-                        loading: false,
-                        stop:false
-                    });
-                //}
-            });
-        //}
+        
+        fetch(`https://api.github.com/users/${this.props.params.username}/followers?access_token=${API_TOKEN}&page=${this.state.page}&per_page=50`)
+        .then(response => response.json())
+        .then(response => {
+            //console.log("Array Before concat", this.state.followersArray)
+            //console.log("Array After concat", this.state.followersArray.concat(response))
+            if(response.length){
+                this.setState({
+                    //YOU KEEP MISTAKING THIS
+                    //EVEN INSIDE setState you gotta use this.setState
+                    followersArray: this.state.followersArray.concat(response),
+                    page: this.state.page + 1,
+                    loading: false,
+                });
+            }
+            else{
+                this.setState({
+                    infiniteOffset: undefined
+                });   
+            }
+        });
     }
     
     _renderFollower(follower){
@@ -68,7 +56,11 @@ class Followers extends React.Component{
         );
     }
     
-/*    componentDidMount(){
+    
+    //Not needed anymore
+    //Explained in step 0 of github in infinite scroll section
+    //Having this with Infinite makes multiple AJAX calls at the same time
+    /*componentDidMount(){
         console.log('In mount')
         this._fetchData();
     }*/
@@ -79,6 +71,9 @@ class Followers extends React.Component{
         }
     }
     
+    
+    //does not work if not bounded in Infinite tag
+    //Dont need the else
     _loadingSign = (loadState) =>{
         if(loadState){
             return(<div>LOADING</div>)
@@ -87,11 +82,18 @@ class Followers extends React.Component{
             return(<div>LOADING COMPLETE</div>)
         }
     }
+    
+    
+    
+/*    _loadingSign=()=>{
+        return(<div>LOADING</div>);
+    }*/
 
     render(){
         //In the render method, we're currently checking if this.state.followers is truthy. 
         //We don't need to do that anymore, because we'll always have a list of followers.
-        //^^Ask Ziad or TAs about this --always have a list of followers 
+        //^^Ask Ziad or TAs about this --always have a list of followers
+        //Answer infinite tag takes care of this
         //if the followersArray of state doesnt exist yet, i.e: is undefined
         /*if(!this.state.followersArray){ 
             return (<div className="followers-page">LOADING Followers...</div>);
@@ -102,16 +104,16 @@ class Followers extends React.Component{
         return(
             <div className="followers-page">
                 <h3>Followers of {this.props.params.username}</h3>
+                {/*ul tag must be outside infinite or infiite no of ul will be made*/}
                 <ul> 
                     <Infinite   isInfiniteLoading={this.state.loading}
                                 onInfiniteLoad={this._fetchData}
                                 useWindowAsScrollContainer
-                                elementHeight={30}
-                                infiniteLoadBeginEdgeOffset={50}
+                                elementHeight={50}
+                                infiniteLoadBeginEdgeOffset={this.state.infiniteOffset}
                                 loadingSpinnerDelegate={this._loadingSign(this.state.loading)}>
-                            { this.state.followersArray.map(this._renderFollower)}
+                        {this.state.followersArray.map(this._renderFollower)}
                     </Infinite>
-                    
                 </ul>
             </div>
         );
@@ -119,6 +121,17 @@ class Followers extends React.Component{
 }
 
 export default Followers;
+/*------------------------------INFINITE tag properties----------------------------------
+    The Infinite tag and issues: Their documenation sucks, mistakes in their
+    on first time onInfiniteLoad runs fetch when it sees isInfiniteLoading = false.
+    The reason we set it to false at the start
+    and that the infinte tag is empty, has no data (i.e has no child yet)
+    After that it runs when 
+    isInfiniteLoading = false and when the scroll exceeds infiniteLoadBeginEdgeOffset.
+    That is why to stop the Loading appearing at the end we set infiniteLoadBeginEdgeOffset
+    value to undefined when there is no more data to fetch. This is donw in the _fetchData
+*/
+
 
 /*
     Read the github page for the this repo to understand why we need componentDidUpdate
