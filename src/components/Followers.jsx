@@ -6,17 +6,29 @@ class Followers extends React.Component {
     
     constructor() {
         super();
-        this.state = {};
+        this.state = {
+            page: 1, 
+            loading: false, 
+            followers: []
+        };
     }
     
     fetchData() {
+        this.setState = {
+            loading: true
+        }
         //console.log(this)
-        fetch(`https://api.github.com/users/${this.props.params.username}/followers`)
+        //https://api.github.com/users/USER/followers?access_token=XXX&page=1&per_page=50
+        fetch(`https://api.github.com/users/${this.props.params.username}/followers?&page=${this.state.page}&per_page=50`)
         .then(response => response.json())
+        // this.setState({list: this.state.list.concat([newObject])});
         .then(
             followers => {
                 this.setState({
-                    followers: followers
+                    followers: this.state.followers.concat([]), 
+                    loading: false, 
+                    page: this.state.page + 1
+                    
                 });
             }
         )
