@@ -35,7 +35,6 @@ class User extends React.Component {
     
     componentDidMount() {
         this.fetchData();
-        // console.log(this.user)
     }
     
     componentDidUpdate(prevProps, prevState) {
@@ -50,7 +49,7 @@ class User extends React.Component {
     renderStat(stat) {
         return (
             <li key={stat.name} className="user-info__stat">
-                <Link to={stat.url}>
+                <Link to={stat.url} className="stat">
                     <p className="user-info__stat-value">{stat.value}</p>
                     <p className="user-info__stat-name">{stat.name}</p>
                 </Link>

@@ -20,7 +20,7 @@ class Followers extends React.Component {
       loading: true
     });
     //console.log(this)
-    fetch(`https://api.github.com/users/${this.props.params.username}/followers`)
+    fetch(`https://api.github.com/users/${this.props.params.username}/followers?&page=${this.state.page}&per_page=50`)
       .then(response => response.json())
       .then(
         followersResponse => {
@@ -57,9 +57,9 @@ class Followers extends React.Component {
     // }
     return (
       <div className="followers-page">
-        <h3>Followed by {this.props.params.username}</h3>
+        <h3>Followers of {this.props.params.username}</h3>
         <div className="Infinite-scroll-followers">
-            <Infinite className="followers-page"
+            <Infinite className="followers-page-infinite"
                       isInfiniteLoading={this.state.loading}
                       onInfiniteLoad={this.fetchData.bind(this)}
                       useWindowAsScrollContainer

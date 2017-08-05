@@ -1,5 +1,5 @@
 body {
-    font-family: Helvetica;
+    font-family: 'Comfortaa', sans-serif;
     margin: 0;
 }
 
@@ -9,16 +9,22 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .main-header {
-    background-color: pink;
+    background-color: #FF3B3F;
     color: #fff;
-    font-family: 'Merriweather', serif;;
     overflow: hidden;
     padding: 2rem;
+    margin-top: 0;
+    height: 50px;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .main-header h1 {
     line-height: 1;
-    margin: 0;
+    z-index: 555;
     font-weight: 400;
 }
 
@@ -28,12 +34,10 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .main-content {
-    padding: 0.5rem;
+    padding: 8rem 0.5rem 0.5rem 0.5rem;
+    background-color: #CAEBF2;
+   
 }
-
-
-
-
 
 .search-page {
     text-align: center;
@@ -51,26 +55,36 @@ h1,h2,h3,h4,h5,h6 {
     font-size: 20px;
 }
 
-
-
-
+/*user styles */
 
 .user-info {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin:10px;
+    max-width: 100%;
 }
 
 .user-info__avatar {
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     margin-right: 1em;
-    float: left;
+    display: flex;
+    flex-direction: row;
 }
 
 .user-info__text {
     text-decoration: none;
     flex: 1;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .user-info__title {
@@ -81,6 +95,8 @@ h1,h2,h3,h4,h5,h6 {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: #696969;
+    margin-left: 0;
 }
 
 .user-info__stats {
@@ -96,6 +112,7 @@ h1,h2,h3,h4,h5,h6 {
     text-transform: lowercase;
     font-variant: small-caps;
     text-align: center;
+    background-color: black;
 }
 
 .user-info__stat {
@@ -106,18 +123,15 @@ h1,h2,h3,h4,h5,h6 {
     margin: 0;
     white-space: nowrap;
 }
+
+.user-info__stat-value, .user-info__stat-name {
+    color: #696969;
+    font-size: 1.3rem;
+}
+
  /*GithubUser styles*/
- 
- .GithubUserLink {
-     display: flex;
-     flex-direction: row;
-     text-decoration: none;
-     background-color: red;
- }
- 
+
  .githubUserDisplay {
-     background-color: white;
-     border-radius: 15px;
      display: flex;
      flex-direction: row;
      justify-content: flex-start;
@@ -144,14 +158,12 @@ h1,h2,h3,h4,h5,h6 {
  
  /*Followers component styles */
  
-.followersMap, .followingMap {
-    /*background-color: blue;*/
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
+ .followers-page {
+     padding: 30px 0 30px 30px;
+     color: #696969;
+     background-color: white;
+     border-radius: 15px;
+ }
  
  .followers-page a {
      text-decoration: none;
