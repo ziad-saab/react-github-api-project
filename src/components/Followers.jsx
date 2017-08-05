@@ -19,13 +19,10 @@ class Followers extends React.Component {
    this.setState({
       loading: true
     });
-    //console.log(this)
     fetch(`https://api.github.com/users/${this.props.params.username}/followers?&page=${this.state.page}&per_page=50`)
       .then(response => response.json())
       .then(
         followersResponse => {
-          console.log('got response');
-
          let mergedArray = this.state.followers.concat(followersResponse);
           this.setState({
             followers: mergedArray,
@@ -34,14 +31,9 @@ class Followers extends React.Component {
           });
         }
       );
-    // .then(
-    //     console.log(this)
-    // )
+
   }
-  //
-  // componentDidMount() {
-  //   this.fetchData();
-  // }
+
 
  componentDidUpdate(prevProps, prevState) {
     if (prevProps.params.username !== this.props.params.username) {
@@ -50,11 +42,6 @@ class Followers extends React.Component {
   }
 
  render() {
-    console.log('in render', this.state.followers);
-    //
-    // if (!this.state.followers) {
-    //   return <div>LOADING followers...</div>;
-    // }
     return (
       <div className="followers-page">
         <h3>Followers of {this.props.params.username}</h3>

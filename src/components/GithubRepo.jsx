@@ -1,10 +1,10 @@
 import React from 'react';
 // import { Link } from 'react-router';
+var FontAwesome = require('react-fontawesome');
 
 class GithubRepo extends React.Component {
 
     render() {
-        // console.log(this)
         return (
         
             
@@ -12,14 +12,11 @@ class GithubRepo extends React.Component {
                 <a href={`https://github.com/${this.props.name}`} className="githubRepoLink" >
                 <h2 className="githubRepoName">{this.props.name}</h2>
                 </a>
-                <a href={`https://github.com/${this.props.name}/stargazers`}>
-                <p>{this.props.stargazers} stargazers </p> 
+                <a href={`https://github.com/${this.props.name}/stargazers`} className="repoStargazers">
+                <p>{this.props.stargazers} <FontAwesome name='star' /></p> 
                 </a>    
             </div>    
-            
-       
         );
-        // console.log(this.githubRepoLink)
     }
 }
 export default GithubRepo;

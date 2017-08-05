@@ -1,5 +1,5 @@
 body {
-    font-family: 'Comfortaa', sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
 }
 
@@ -23,9 +23,12 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .main-header h1 {
+    font-family: 'Poiret One', sans-serif;
     line-height: 1;
     z-index: 555;
-    font-weight: 400;
+    font-size: 4rem;
+    margin-top: 40px;
+    max-width: 90%;
 }
 
 .main-header a {
@@ -44,15 +47,22 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .search-page__input {
-    border: 1px solid black;
+    border: none;
     padding: 0.2em;
     margin-right: 1em;
     font-size: 20px;
+    border-radius: 12px;
+    outline: none;
+    text-align: center;
 }
 .search-page__button {
-    border: 1px solid black;
-    background-color: #fff;
+    border: none; 
+    background-color: #FF3B3F;
+    color: #FFFFFF;
     font-size: 20px;
+    border-radius: 12px;
+    padding: 5px;
+    outline: none;
 }
 
 /*user styles */
@@ -155,17 +165,43 @@ h1,h2,h3,h4,h5,h6 {
      border-radius: 100px;
  }
  
+ /*GthubRepo styles*/ 
  
- /*Followers component styles */
+ .githubReposDisplay {
+     display: flex;
+     flex-direction: row;
+ }
  
- .followers-page {
+ .githubRepoLink  {
+     color: #696969;
+ }
+
+ .repoStargazers {
+     color: #FFFFFF;
+     background-color: #FF3B3F;
+     border-radius: 8px;
+     margin: 0 0 0 25px;
+     padding: 0;
+     height: 1rem;
+     padding: 7px;
+ }
+ 
+ .repoStargazers p {
+     padding: 0;
+     margin: 0;
+ }
+ 
+ /*component styles */
+ 
+ .followers-page, .repos-page, .following-page {
      padding: 30px 0 30px 30px;
      color: #696969;
      background-color: white;
      border-radius: 15px;
  }
  
- .followers-page a {
+ .followers-page a, .following-page a, .repos-page a {
      text-decoration: none;
  }
+ 
  

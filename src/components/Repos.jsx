@@ -19,13 +19,10 @@ class Repos extends React.Component {
    this.setState({
       loading: true
     });
-    //console.log(this)
     fetch(`https://api.github.com/users/${this.props.params.username}/repos?&page=${this.state.page}&per_page=50`)
       .then(response => response.json())
       .then(
         reposResponse => {
-          console.log('got response');
-
          let mergedArray = this.state.repos.concat(reposResponse);
           this.setState({
             repos: mergedArray,
@@ -44,11 +41,7 @@ class Repos extends React.Component {
   }
 
  render() {
-    console.log('in render', this.state.following);
-    //
-    // if (!this.state.followers) {
-    //   return <div>LOADING followers...</div>;
-    // }
+
     return (
       <div className="repos-page">
         <h3>Public Repositories by {this.props.params.username}</h3>
@@ -57,7 +50,7 @@ class Repos extends React.Component {
                       isInfiniteLoading={this.state.loading}
                       onInfiniteLoad={this.fetchData.bind(this)}
                       useWindowAsScrollContainer
-                      elementHeight={100}
+                      elementHeight={50}
                       infiniteLoadBeginEdgeOffset={100} >
                 {this.state.repos.map(repo => {
                     return (

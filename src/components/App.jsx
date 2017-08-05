@@ -14,7 +14,7 @@ class App extends React.Component {
         return (
             <div className="main-app">
                 <header className="main-header">
-                    <h1><Link to="/">React Repository Research <span>(powered by Github API)</span></Link></h1>
+                    <h1><Link to="/">Github Getter</Link></h1>
                 </header>
                 <main className="main-content">
                     {this.props.children}

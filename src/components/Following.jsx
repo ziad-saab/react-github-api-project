@@ -19,13 +19,10 @@ class Following extends React.Component {
    this.setState({
       loading: true
     });
-    //console.log(this)
     fetch(`https://api.github.com/users/${this.props.params.username}/following?&page=${this.state.page}&per_page=50`)
       .then(response => response.json())
       .then(
         followingResponse => {
-          console.log('got response');
-
          let mergedArray = this.state.following.concat(followingResponse);
           this.setState({
             following: mergedArray,
@@ -44,11 +41,6 @@ class Following extends React.Component {
   }
 
  render() {
-    console.log('in render', this.state.following);
-    //
-    // if (!this.state.followers) {
-    //   return <div>LOADING followers...</div>;
-    // }
     return (
       <div className="following-page">
         <h3>Followed by {this.props.params.username}</h3>

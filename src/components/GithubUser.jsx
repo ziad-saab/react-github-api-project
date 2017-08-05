@@ -5,7 +5,6 @@ class GithubUser extends React.Component {
     
 
     render() {
-        // console.log(this.props)
         return (
         <div>
             <Link className="githubUserLink" to={`/user/${this.props.user}`}>
@@ -19,6 +18,3 @@ class GithubUser extends React.Component {
     }
 }
 export default GithubUser;
-
-
-//<img className="githubUser-avatar" src={this.props.params.user.avatar_url} alt={`${this.props.params.user.login} avatar`}/>

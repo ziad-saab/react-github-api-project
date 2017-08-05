@@ -14,7 +14,6 @@ import User from './components/User';
 import Followers from './components/Followers';
 import Following from './components/Following';
 import Repos from './components/Repos';
-// import GithubRepo from './components/GithubRepo';
 
 /*
 Rendering a router will output the right component tree based on the current URL.
