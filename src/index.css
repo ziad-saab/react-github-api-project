@@ -104,7 +104,6 @@ hr {
 
 .user-info__stat {
     flex: 1;
-    text-decoration: none;
 }
 
 .user-info__stat p {
@@ -119,6 +118,14 @@ hr {
   font-size: 1.5rem;
 }
 .user img{
-border-radius: 50%;
+  border-radius: 50%;
   max-width:50px;
 }
+
+.user span {
+    color: black;
+    text-decoration-line: none;
+    font-size: 1.7rem;
+    padding-left: 17px;
+}
+

@@ -6,7 +6,7 @@ class Repo extends React.Component {
   render(){
     return(
     <div className="user">
-    <a href={this.props.name}>{this.props.link}</a>
+    <a href={this.props.link}>{this.props.link}</a>
 
     </div>
     )
